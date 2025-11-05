@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QuizMaster - The ultimate competitive quiz experience">
+    <meta name="keywords" content="quiz, trivia, competition, leaderboard, knowledge">
+    <meta name="author" content="QuizMaster Team">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="QuizMaster - Competitive Quiz App">
+    <meta property="og:description" content="Test your knowledge and compete with others in the ultimate quiz experience">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quizmaster.app">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QuizMaster - Competitive Quiz App">
+    <meta name="twitter:description" content="Test your knowledge and compete with others">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    
+    <title>Isia-quiz by umar murtala Muhammad</title>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <h2>Loading QuizMaster...</h2>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar hidden">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/images/logo.svg" alt="QuizMaster" class="logo">
+                <span class="brand-text">QuizMaster</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+                <a href="#quiz" class="nav-link" data-page="quiz">Take Quiz</a>
+                <a href="#leaderboard" class="nav-link" data-page="leaderboard">Leaderboard</a>
+                <a href="#profile" class="nav-link" data-page="profile">Profile</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button id="theme-toggle" class="btn-icon" title="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="logout-btn" class="btn btn-outline desktop-only">Logout</button>
+                <button id="mobile-menu-toggle" class="mobile-menu-toggle mobile-only">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <a href="#dashboard" class="nav-link" data-page="dashboard">Dashboard</a>
+            <a href="#quiz" class="nav-link" data-page="quiz">Take Quiz</a>
+            <a href="#leaderboard" class="nav-link" data-page="leaderboard">Leaderboard</a>
+            <a href="#profile" class="nav-link" data-page="profile">Profile</a>
+            <button id="mobile-logout-btn" class="btn btn-outline btn-full">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main id="app" class="app-container">
+        <!-- Authentication Pages -->
+        <div id="auth-container" class="auth-container">
+            <!-- Login Page -->
+            <div id="login-page" class="auth-page active">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <img src="assets/images/logo.svg" alt="QuizMaster" class="auth-logo">
+                        <h1>Welcome Back</h1>
+                        <p>Sign in to continue your quiz journey</p>
+                    </div>
+                    
+                    <form id="login-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" name="email" required>
+                            <span class="form-error" id="login-email-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" name="password" required>
+                            <span class="form-error" id="login-password-error"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span class="btn-text">Sign In</span>
+                            <span class="btn-loader hidden">Signing in...</span>
+                        </button>
+                        
+                        <div class="auth-links">
+                            <a href="#" id="show-register">Don't have an account? Sign up</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Register Page -->
+            <div id="register-page" class="auth-page">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <img src="assets/images/logo.svg" alt="QuizMaster" class="auth-logo">
+                        <h1>Join QuizMaster</h1>
+                        <p>Create your account and start competing</p>
+                    </div>
+                    
+                    <form id="register-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" name="username" required>
+                            <span class="form-error" id="register-username-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" name="email" required>
+                            <span class="form-error" id="register-email-error"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" name="password" required>
+                            <span class="form-error" id="register-password-error"></span>
+                            <div class="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill"></div>
+                                </div>
+                                <span class="strength-text">Password strength</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-confirm-password">Confirm Password</label>
+                            <input type="password" id="register-confirm-password" name="confirmPassword" required>
+                            <span class="form-error" id="register-confirm-password-error"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span class="btn-text">Create Account</span>
+                            <span class="btn-loader hidden">Creating account...</span>
+                        </button>
+                        
+                        <div class="auth-links">
+                            <a href="#" id="show-login">Already have an account? Sign in</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Pages (Hidden until authenticated) -->
+        <div id="app-pages" class="app-pages hidden">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Ready for your next challenge?</p>
+                </div>
+                
+                <!-- User Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="user-total-points">0</div>
+                        <div class="stat-label">Total Points</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="user-quizzes-completed">0</div>
+                        <div class="stat-label">Quizzes Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="user-average-score">0</div>
+                        <div class="stat-label">Average Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="user-rank">#-</div>
+                        <div class="stat-label">Current Rank</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <!-- Quick Start Quiz -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">🎯</div>
+                            <div class="dashboard-card-title">Quick Start</div>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <p>Jump right into a quiz with your preferred settings</p>
+                            <div class="quick-start-buttons">
+                                <button class="btn btn-primary" data-category="all" data-difficulty="medium" data-count="10">
+                                    Random Quiz
+                                </button>
+                                <button class="btn btn-secondary" data-category="Science" data-difficulty="easy" data-count="5">
+                                    Science Easy
+                                </button>
+                                <button class="btn btn-secondary" data-category="History" data-difficulty="medium" data-count="10">
+                                    History Medium
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">📊</div>
+                            <div class="dashboard-card-title">Recent Activity</div>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <div id="recent-activity">
+                                <p>No recent quiz activity</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">🏆</div>
+                            <div class="dashboard-card-title">Achievements</div>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <div id="user-achievements">
+                                <p>Complete your first quiz to earn achievements!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard Preview -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">🥇</div>
+                            <div class="dashboard-card-title">Top Players</div>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <div id="leaderboard-preview">
+                                <p>Loading leaderboard...</p>
+                            </div>
+                            <button class="btn btn-outline btn-sm" onclick="uiManager.showPage('leaderboard')">
+                                View Full Leaderboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quiz Page -->
+            <div id="quiz-page" class="page">
+                <!-- Quiz Selection Screen -->
+                <div id="quiz-selection" class="quiz-selection">
+                    <div class="page-header">
+                        <h1>Take a Quiz</h1>
+                        <p>Choose your category and difficulty to start your quiz challenge</p>
+                    </div>
+                    
+                    <div class="quiz-setup-form">
+                        <div class="form-group">
+                            <label for="quiz-category">Category</label>
+                            <select id="quiz-category" name="category">
+                                <option value="all">All Categories</option>
+                                <option value="General Knowledge">General Knowledge</option>
+                                <option value="Science">Science</option>
+                                <option value="History">History</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Literature">Literature</option>
+                                <option value="Art">Art</option>
+                                <option value="Music">Music</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quiz-difficulty">Difficulty</label>
+                            <select id="quiz-difficulty" name="difficulty">
+                                <option value="all">All Difficulties</option>
+                                <option value="easy">Easy (10 points)</option>
+                                <option value="medium" selected>Medium (20 points)</option>
+                                <option value="hard">Hard (30 points)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quiz-count">Number of Questions</label>
+                            <select id="quiz-count" name="questionCount">
+                                <option value="5">5 Questions</option>
+                                <option value="10" selected>10 Questions</option>
+                                <option value="15">15 Questions</option>
+                                <option value="20">20 Questions</option>
+                            </select>
+                        </div>
+                        
+                        <button id="start-quiz-btn" class="btn btn-primary btn-lg btn-full">
+                            Start Quiz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Interface -->
+                <div id="quiz-interface" class="quiz-interface hidden">
+                    <!-- Quiz Header -->
+                    <div class="quiz-header">
+                        <div class="quiz-progress">
+                            <span class="quiz-progress-text">Question 1 of 10</span>
+                            <div class="quiz-timer">5:00</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="question-card">
+                        <div class="question-number">Question 1</div>
+                        <div class="question-text">
+                            Loading question...
+                        </div>
+                        <div class="question-options">
+                            <!-- Options will be dynamically inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Quiz Actions -->
+                    <div class="quiz-actions">
+                        <button id="quit-quiz-btn" class="btn btn-outline">
+                            Quit Quiz
+                        </button>
+                        <div class="quiz-score">
+                            Score: <span id="current-score">0</span> points
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Results -->
+                <div id="quiz-results" class="quiz-results hidden">
+                    <div class="results-header">
+                        <div class="results-icon">🎉</div>
+                        <h2>Quiz Complete!</h2>
+                        <p>Great job! Here are your results:</p>
+                    </div>
+                    
+                    <div class="results-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="final-score">0</div>
+                            <div class="stat-label">Total Score</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="correct-count">0</div>
+                            <div class="stat-label">Correct Answers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="accuracy-percent">0%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="time-taken">0:00</div>
+                            <div class="stat-label">Time Taken</div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-actions">
+                        <button id="take-another-quiz-btn" class="btn btn-primary">
+                            Take Another Quiz
+                        </button>
+                        <button id="view-leaderboard-btn" class="btn btn-secondary">
+                            View Leaderboard
+                        </button>
+                        <button id="review-answers-btn" class="btn btn-outline">
+                            Review Answers
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Leaderboard Page -->
+            <div id="leaderboard-page" class="page">
+                <div class="page-header">
+                    <h1>Leaderboard</h1>
+                    <p>See how you rank against other quiz masters</p>
+                </div>
+                
+                <!-- Current User Rank Card -->
+                <div id="user-rank-card" class="user-rank-card hidden">
+                    <div class="rank-card-header">
+                        <h3>Your Ranking</h3>
+                        <button id="refresh-rank-btn" class="btn btn-sm btn-outline">Refresh</button>
+                    </div>
+                    <div class="rank-card-content">
+                        <div class="rank-info">
+                            <div class="rank-position">
+                                <span class="rank-number">#-</span>
+                                <span class="rank-label">Current Rank</span>
+                            </div>
+                            <div class="rank-stats">
+                                <div class="rank-stat">
+                                    <span class="stat-value" id="user-rank-points">0</span>
+                                    <span class="stat-label">Points</span>
+                                </div>
+                                <div class="rank-stat">
+                                    <span class="stat-value" id="user-rank-quizzes">0</span>
+                                    <span class="stat-label">Quizzes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leaderboard-content">
+                    <!-- Leaderboard Filters -->
+                    <div class="leaderboard-filters">
+                        <button class="filter-button active" data-category="all">All Categories</button>
+                        <button class="filter-button" data-category="General Knowledge">General Knowledge</button>
+                        <button class="filter-button" data-category="Science">Science</button>
+                        <button class="filter-button" data-category="History">History</button>
+                        <button class="filter-button" data-category="Geography">Geography</button>
+                        <button class="filter-button" data-category="Sports">Sports</button>
+                        <button class="filter-button" data-category="Entertainment">Entertainment</button>
+                        <button class="filter-button" data-category="Technology">Technology</button>
+                    </div>
+
+                    <!-- Leaderboard Controls -->
+                    <div class="leaderboard-controls">
+                        <div class="leaderboard-search">
+                            <input type="text" id="leaderboard-search" placeholder="Search users..." class="search-input">
+                        </div>
+                        <div class="leaderboard-options">
+                            <select id="leaderboard-limit" class="limit-select">
+                                <option value="10">Top 10</option>
+                                <option value="25" selected>Top 25</option>
+                                <option value="50">Top 50</option>
+                                <option value="100">Top 100</option>
+                            </select>
+                            <button id="refresh-leaderboard-btn" class="btn btn-sm btn-outline">
+                                <span class="refresh-icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard List -->
+                    <div class="leaderboard-container">
+                        <div id="leaderboard-loading" class="leaderboard-loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading leaderboard...</p>
+                        </div>
+                        
+                        <div id="leaderboard-list" class="leaderboard-list hidden">
+                            <!-- Leaderboard items will be dynamically inserted here -->
+                        </div>
+                        
+                        <div id="leaderboard-empty" class="leaderboard-empty hidden">
+                            <div class="empty-icon">📊</div>
+                            <h3>No Results Found</h3>
+                            <p>Try adjusting your search or category filter.</p>
+                        </div>
+                        
+                        <div id="leaderboard-error" class="leaderboard-error hidden">
+                            <div class="error-icon">⚠️</div>
+                            <h3>Failed to Load Leaderboard</h3>
+                            <p>Please check your connection and try again.</p>
+                            <button class="btn btn-primary" onclick="leaderboardUI.loadLeaderboard()">
+                                Retry
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="leaderboard-actions">
+                        <button id="load-more-btn" class="btn btn-outline hidden">
+                            Load More Users
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Page -->
+            <div id="profile-page" class="page">
+                <div class="page-header">
+                    <h1>Profile</h1>
+                    <p>Manage your account and view your statistics</p>
+                </div>
+                
+                <div class="profile-container">
+                    <!-- Profile Header -->
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profile-avatar">
+                            U
+                        </div>
+                        <div class="profile-info">
+                            <h2 class="profile-name" id="profile-name">User</h2>
+                            <p class="profile-email" id="profile-email">user@example.com</p>
+                            <div class="profile-stats">
+                                <div class="profile-stat">
+                                    <div class="profile-stat-value" id="profile-total-points">0</div>
+                                    <div class="profile-stat-label">Total Points</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <div class="profile-stat-value" id="profile-quizzes">0</div>
+                                    <div class="profile-stat-label">Quizzes Taken</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <div class="profile-stat-value" id="profile-accuracy">0%</div>
+                                    <div class="profile-stat-label">Average Accuracy</div>
+                                </div>
+                                <div class="profile-stat">
+                                    <div class="profile-stat-value" id="profile-rank">#-</div>
+                                    <div class="profile-stat-label">Global Rank</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button id="edit-profile-btn" class="btn btn-outline">Edit Profile</button>
+                            <button id="refresh-profile-btn" class="btn btn-outline">
+                                <span class="refresh-icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="profile-sections">
+                        <!-- Quiz History Section -->
+                        <div class="profile-section">
+                            <div class="profile-section-header">
+                                <h3 class="profile-section-title">Quiz History</h3>
+                                <button id="clear-history-btn" class="btn btn-sm btn-outline">Clear History</button>
+                            </div>
+                            <div id="quiz-history" class="quiz-history">
+                                <p>No quiz history available</p>
+                            </div>
+                        </div>
+
+                        <!-- Achievements Section -->
+                        <div class="profile-section">
+                            <div class="profile-section-header">
+                                <h3 class="profile-section-title">Achievements</h3>
+                                <span id="achievements-count" class="section-count">0</span>
+                            </div>
+                            <div id="profile-achievements" class="profile-achievements">
+                                <p>Complete quizzes to earn achievements!</p>
+                            </div>
+                        </div>
+
+                        <!-- Category Performance Section -->
+                        <div class="profile-section">
+                            <h3 class="profile-section-title">Category Performance</h3>
+                            <div id="category-performance" class="category-performance">
+                                <p>Take quizzes in different categories to see your performance!</p>
+                            </div>
+                        </div>
+
+                        <!-- Account Settings Section -->
+                        <div class="profile-section">
+                            <h3 class="profile-section-title">Account Settings</h3>
+                            <div class="account-settings">
+                                <div class="setting-item">
+                                    <label for="theme-preference">Theme Preference</label>
+                                    <select id="theme-preference" class="setting-select">
+                                        <option value="light">Light</option>
+                                        <option value="dark">Dark</option>
+                                        <option value="auto">Auto</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item">
+                                    <label for="notifications-enabled">Enable Notifications</label>
+                                    <input type="checkbox" id="notifications-enabled" class="setting-checkbox">
+                                </div>
+                                <div class="setting-item">
+                                    <label for="sound-effects">Sound Effects</label>
+                                    <input type="checkbox" id="sound-effects" class="setting-checkbox" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification System -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- Modal Container -->
+    <div id="modal-container" class="modal-container hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <!-- Modal content will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/performance.js"></script>
+    <script src="scripts/error-handler.js"></script>
+    <script src="scripts/security.js"></script>
+    <script src="scripts/scoring.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/quiz.js"></script>
+    <script src="scripts/leaderboard.js"></script>
+    <script src="scripts/leaderboard-ui.js"></script>
+    <script src="scripts/dashboard.js"></script>
+    <script src="scripts/profile.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
