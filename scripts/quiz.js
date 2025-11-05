@@ -729,7 +729,7 @@ class QuizManager {
      * @param {string} answer - Selected answer
      * @returns {Object} Answer result
      */
-    submitAnswer(answer) {
+    async submitAnswer(answer) {
         if (!this.isQuizActive || this.currentQuestionIndex >= this.questions.length) {
             return { success: false, message: 'No active question' };
         }
